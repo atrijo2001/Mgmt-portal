@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+}
+.intro {
+  width: 60%;
+  height: 100%;
+}
+.auth {
+  width: 40%;
+  height: 100%;
+  background-color: rgb(221, 221, 221);
+}
+.auth button {
+  width: 50%;
+  height: 6vh;
+  color: black;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+  margin: 3vh 0 1vh 0;
+  border: none;
+  cursor: pointer;
+  background: transparent
+    linear-gradient(
+      260deg,
+      var(--unnamed-color-cdb4db) 0%,
+      var(--unnamed-color-a2d2ff) 100%
+    )
+    0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(260deg, #cdb4db 0%, #a2d2ff 100%) 0%
+    0% no-repeat padding-box;
+  opacity: 1;
+}
