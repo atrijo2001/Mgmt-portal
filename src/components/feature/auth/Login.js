@@ -1,11 +1,9 @@
 import { Formik, Field, Form, ErrorMessage} from 'formik'
 import styles from '../../../assets/css/modules/inputform.module.css'
-import {useState} from 'react'
-import {Link} from 'react-router-dom'
 
 
 async function getData(values){
-    const data = await fetch ('https://stc-mgmt-portal.herokuapp.com/user/login', {
+     const data = await fetch ('https://stc-mgmt-portal.herokuapp.com/user/login', {
         method:'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -13,7 +11,7 @@ async function getData(values){
         body: JSON.stringify(values)
     })
     const dataJson = await data.json();
-    console.log(dataJson);
+    console.log('fetched');
     return dataJson
 }
 
@@ -28,24 +26,27 @@ const validateValues = (values) =>{
     return error;
 }
 
-export default function Login() {
-    const [data,setData] = useState({})
-    
+export default function Login({setLogin}) {
     return (
         <div>
             <Formik
                 initialValues = {{ username:'' , password : '' }}
                 validate = {validateValues}
                 onSubmit = {
-                    (values, {setSubmitting}) =>{
-                        console.log("hello");
-                        setTimeout(()=>{
-                            console.log(JSON.stringify(values));
-                            setData( getData(values))
-                            setSubmitting(false);
-                        }, 500)
+                    async (values,{setSubmitting}) =>{
+                            setSubmitting(true)
+                            const data = await getData(values);
+                            if(Object.entries(data).length === 1){
+                                alert(data.message)
+                                setSubmitting(false);
+                            }
+                            else{
+                                localStorage.setItem('Token',data.Token)
+                                setLogin(true);
+                            }
+                        }
+                     
                     }
-                }
             >
                 <Form className={styles.form}>
                     <div className={styles.element}>
@@ -58,20 +59,9 @@ export default function Login() {
                         <Field name="password" type="password" />
                         <span><ErrorMessage name="password" /></span>
                     </div>
-                    <Link to='/dashboard'><button type="submit">Login</button></Link>
+                    <button type="submit">Login</button>
                 </Form>
             </Formik>
         </div>
     )
 }
-
-/*
-fetch ('https://stc-mgmt-portal.herokuapp.com/user/login', {
-                                    method:'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify(values)
-                                }).then(res => res.json())
-                                .then(({Token,message}) => alert(Token))
-                                */

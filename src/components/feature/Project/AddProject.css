@@ -1,0 +1,15 @@
+.form{
+    width: 80% !important;
+	height: 90% !important;
+	margin: 10% auto !important;
+	background: #f1eded 0% 0% no-repeat padding-box !important;
+	box-shadow: 0 1px 20px 0px rgba(0, 0, 0, 0.1) !important;
+}
+.form-group{
+    width: 80% !important;
+    margin: 0 auto;
+}
+.form-check{
+    width: 80% !important;
+    margin: 0 auto;
+}
